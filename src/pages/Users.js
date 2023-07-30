@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import UserList from "./UserList";
-import UserDetails from "./UserDetails";
+import UserList from "../components/UserList";
+import UserDetails from "../components/UserDetails";
 
 const User = () => {
   const [activeID, setActiveID] = useState(null);
