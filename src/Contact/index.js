@@ -1,8 +1,17 @@
 import React from "react";
 import { useFormik } from "formik";
+import validations from "./validations";
 
 const Contact = () => {
-  const { handleSubmit, handleChange, values, isSubmitting } = useFormik({
+  const {
+    handleSubmit,
+    handleChange,
+    handleBlur,
+    values,
+    isSubmitting,
+    errors,
+    touched,
+  } = useFormik({
     initialValues: {
       firstName: "",
       lastName: "",
@@ -14,6 +23,7 @@ const Contact = () => {
       console.log(values);
       bag.resetForm();
     },
+    validationSchema: validations,
   });
   return (
     <div className="container mx-auto p-4">
@@ -31,7 +41,11 @@ const Contact = () => {
             value={values.firstName}
             disabled={isSubmitting}
             onChange={handleChange("firstName")}
+            onBlur={handleBlur("firstName")}
           />
+          {errors.firstName && touched.firstName && (
+            <div className="text-red-500">{errors.firstName}</div>
+          )}
         </div>
 
         <div className="mb-4">
@@ -46,7 +60,11 @@ const Contact = () => {
             value={values.lastName}
             disabled={isSubmitting}
             onChange={handleChange("lastName")}
+            onBlur={handleBlur("lastName")}
           />
+          {errors.lastName && touched.lastName && (
+            <div className="text-red-500">{errors.lastName}</div>
+          )}
         </div>
 
         <div className="mb-4">
@@ -62,7 +80,11 @@ const Contact = () => {
             value={values.email}
             disabled={isSubmitting}
             onChange={handleChange("email")}
+            onBlur={handleBlur("email")}
           />
+          {errors.email && touched.email && (
+            <div className="text-red-500">{errors.email}</div>
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="message" className="block font-bold mb-1">
@@ -73,13 +95,16 @@ const Contact = () => {
             name="message"
             placeholder="Message"
             type="message"
-            as="textarea"
             rows={4}
             className="form-input w-full border border-gray-400 rounded-md"
             value={values.message}
             disabled={isSubmitting}
             onChange={handleChange("message")}
+            onBlur={handleBlur("message")}
           />
+          {errors.message && touched.message && (
+            <div className="text-red-500">{errors.message}</div>
+          )}
         </div>
 
         <button
